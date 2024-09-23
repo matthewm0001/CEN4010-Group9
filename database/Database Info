@@ -1,0 +1,79 @@
+Hello all,
+
+I created a script that you can import into your MySQL using MySQL workbench. It should have everything that everyone needs to complete their features but feel free to update it. Below are the tables that are created using the script along with what fields.
+
+Users Table:
+- id (Unique ID for each user.)
+- username
+- password
+- name
+- email
+- address
+- created_at
+
+Books Table:
+- id (Unique ID for each book.)
+- isbn
+- title
+- description
+- price
+- author_id
+- genre
+- publisher
+- year_published
+- copies_sold
+
+Authors Table:
+- id (Unique ID for each author.)
+- first_name
+- last_name
+- biography
+- publisher
+
+Ratings Table:
+- id (Unique ID for each rating.)
+- book_id
+- user_id
+- rating
+- created_at
+
+Comments Table:
+- id (Unique ID for each comment.)
+- book_id
+- user_id
+- comment
+- created_at
+
+Shopping Cart Table:
+- id (Unique ID for each shopping cart entry.)
+- user_id
+- book_id
+- quantity
+- added_at
+
+Wishlists Table:
+- id (Unique ID for each wishlist.)
+- user_id
+- name
+- created_at
+
+WishlistsBooks Table:
+- wishlist_id (Foreign key linking to a unique wishlist id.)
+- book_id
+- PRIMARY KEY
+
+Credit Cards Table:
+- id (Unique ID for each credit card.)
+- user_id
+- card_number
+- expiration_date
+- cvv
+
+There is also a view that can be used to calculate the top 10 books that is based on the number of copies sold.
+
+Top Sellers View:
+- id (Uses the unique ID from the Books Table.)
+- title (Uses the title field from the Books Table.)
+- copies_sold (Uses the copies_sold field from the Books Table.)
+
+
