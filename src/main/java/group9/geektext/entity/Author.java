@@ -17,7 +17,7 @@ public class Author {
     @Column(nullable = false)
     private String lastName;
 
-    private String biography;
+    private String biography;  // Other fields
 
     @OneToMany(mappedBy = "author")
     private List<Book> books;

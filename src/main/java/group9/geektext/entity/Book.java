@@ -1,9 +1,6 @@
 package group9.geektext.entity;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-
 
 @Entity
 @Table(name = "books")
@@ -33,7 +30,7 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
-    private Author author;
+    private Author author;  // Full Author object without DTO
 
     // Constructors
     public Book() {}

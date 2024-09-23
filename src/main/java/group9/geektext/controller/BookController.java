@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/books")
@@ -18,57 +17,37 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    // Get all books
     @GetMapping
     public List<Book> getAllBooks() {
+        // Return all books as full `Book` entities (with complete Author info)
         return bookService.getAllBooks();
     }
 
-    // Get a book by ID
-    @GetMapping("/{bookId}")
-    public ResponseEntity<Book> getBookById(@PathVariable Long bookId) {
-        Optional<Book> book = bookService.getBookById(bookId);
-        return book.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    @GetMapping("/{id}")
+    public ResponseEntity<Book> getBookById(@PathVariable Long id) {
+        // Get a specific book by its ID
+        Book book = bookService.getBookById(id);
+        return book != null ? ResponseEntity.ok(book) : ResponseEntity.notFound().build();
     }
 
-    // Search books by title
-    @GetMapping("/search")
-    public List<Book> searchBooksByTitle(@RequestParam String title) {
-        return bookService.searchBooksByTitle(title);
-    }
-
-    // Find books by genre
-    @GetMapping("/genre/{genre}")
-    public List<Book> getBooksByGenre(@PathVariable String genre) {
-        return bookService.getBooksByGenre(genre);
-    }
-
-    // Add a new book
     @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody Book book) {
-        return ResponseEntity.ok(bookService.createBook(book));
+        // Create a new book
+        Book createdBook = bookService.createBook(book);
+        return ResponseEntity.ok(createdBook);
     }
 
-    // Update a book
-    @PutMapping("/{bookId}")
-    public ResponseEntity<Book> updateBook(@PathVariable Long bookId, @RequestBody Book updatedBook) {
-        Optional<Book> bookOptional = bookService.getBookById(bookId);
-        if (bookOptional.isPresent()) {
-            Book book = bookOptional.get();
-            book.setTitle(updatedBook.getTitle());
-            book.setGenre(updatedBook.getGenre());
-            book.setDescription(updatedBook.getDescription());
-            book.setPrice(updatedBook.getPrice());
-            return ResponseEntity.ok(bookService.updateBook(book));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @PutMapping("/{id}")
+    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book updatedBook) {
+        // Update a book
+        Book book = bookService.updateBook(id, updatedBook);
+        return book != null ? ResponseEntity.ok(book) : ResponseEntity.notFound().build();
     }
 
-    // Delete a book
-    @DeleteMapping("/{bookId}")
-    public ResponseEntity<Void> deleteBook(@PathVariable Long bookId) {
-        bookService.deleteBook(bookId);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
+        // Delete a book by its ID
+        bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
     }
 }

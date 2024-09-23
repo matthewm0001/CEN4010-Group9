@@ -5,7 +5,6 @@ import group9.geektext.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BookService {
@@ -16,43 +15,37 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    // Get all books
     public List<Book> getAllBooks() {
+        // Simply returning a list of books from the repository
         return bookRepository.findAll();
     }
 
-    // Find book by ID
-    public Optional<Book> getBookById(Long bookId) {
-        return bookRepository.findById(bookId);
+    public Book getBookById(Long id) {
+        // Fetch a book by its ID
+        return bookRepository.findById(id).orElse(null);
     }
 
-    // Search books by title
-    public List<Book> searchBooksByTitle(String title) {
-        return bookRepository.findByTitleContaining(title);
-    }
-
-    // Find books by genre
-    public List<Book> getBooksByGenre(String genre) {
-        return bookRepository.findByGenre(genre);
-    }
-
-    // Find books by author
-    public List<Book> getBooksByAuthor(Long authorId) {
-        return bookRepository.findByAuthor_Id(authorId);
-    }
-
-    // Save a new book
     public Book createBook(Book book) {
+        // Save a new book
         return bookRepository.save(book);
     }
 
-    // Update a book
-    public Book updateBook(Book book) {
-        return bookRepository.save(book);
+    public Book updateBook(Long id, Book updatedBook) {
+        // Update an existing book by ID
+        return bookRepository.findById(id)
+                .map(book -> {
+                    book.setIsbn(updatedBook.getIsbn());
+                    book.setTitle(updatedBook.getTitle());
+                    book.setGenre(updatedBook.getGenre());
+                    book.setPrice(updatedBook.getPrice());
+                    book.setAuthor(updatedBook.getAuthor()); // Set the new author if needed
+                    return bookRepository.save(book);
+                })
+                .orElse(null);
     }
 
-    // Delete a book
-    public void deleteBook(Long bookId) {
-        bookRepository.deleteById(bookId);
+    public void deleteBook(Long id) {
+        // Delete a book by ID
+        bookRepository.deleteById(id);
     }
 }
