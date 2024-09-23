@@ -1,6 +1,8 @@
 Hello all,
 
-I created a script that you can import into your MySQL using MySQL workbench. It should have everything that everyone needs to complete their features but feel free to update it. Below are the tables that are created using the script along with what fields.
+I created a script that you can import into your MySQL using MySQL workbench. It should have everything that everyone needs to complete their features but feel free to update it. 
+
+Below are the tables that are created using the script along with what fields.
 
 Users Table:
 - id (Unique ID for each user.)
