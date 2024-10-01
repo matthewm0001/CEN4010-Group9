@@ -20,7 +20,7 @@ public class Wishlist {
 
     @ManyToMany
     @JoinTable(
-        name = "wishlist_books",
+        name = "wishlistbooks",
         joinColumns = @JoinColumn(name = "wishlist_id"),
         inverseJoinColumns = @JoinColumn(name = "book_id")
     )
