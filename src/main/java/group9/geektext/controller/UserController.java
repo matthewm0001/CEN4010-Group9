@@ -1,12 +1,11 @@
 package group9.geektext.controller;
 
-import group9.geektext.entity.User;
+import group9.geektext.dto.CreditCardDTO;
+import group9.geektext.dto.UserDTO;
 import group9.geektext.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -18,44 +17,33 @@ public class UserController {
         this.userService = userService;
     }
 
-    // Get all users
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
-    }
-
-    // Get user by username
+    // GET request to retrieve user by username
     @GetMapping("/{username}")
-    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
-        Optional<User> user = userService.getUserByUsername(username);
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) {
+        return userService.getUserByUsername(username)
+                .map(userService::convertToUserDTO)  // Convert User to UserDTO
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    // Create a new user
+    // POST request to create a new user
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        return ResponseEntity.ok(userService.createUser(user));
+    public ResponseEntity<Void> createUser(@RequestBody UserDTO userDTO) {
+        userService.createUser(userDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);  // Return 201 Created status
     }
 
-    // Update a user
-    @PutMapping("/{userId}")
-    public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody User updatedUser) {
-        Optional<User> userOptional = userService.getUserByUsername(updatedUser.getUsername());
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            user.setName(updatedUser.getName());
-            user.setEmail(updatedUser.getEmail());
-            user.setAddress(updatedUser.getAddress());
-            return ResponseEntity.ok(userService.updateUser(user));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    // POST request to add a credit card to the user
+    @PostMapping("/{username}/creditcards")
+    public ResponseEntity<Void> addCreditCardToUser(@PathVariable String username, @RequestBody CreditCardDTO creditCardDTO) {
+        userService.addCreditCardToUser(username, creditCardDTO);
+        return ResponseEntity.ok().build();
     }
 
-    // Delete a user
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
-        userService.deleteUser(userId);
-        return ResponseEntity.noContent().build();
+    // PUT or PATCH request to update the user details
+    @PutMapping("/{username}")
+    public ResponseEntity<Void> updateUserDetails(@PathVariable String username, @RequestBody UserDTO userDTO) {
+        userService.updateUserDetails(username, userDTO);
+        return ResponseEntity.ok().build();
     }
 }

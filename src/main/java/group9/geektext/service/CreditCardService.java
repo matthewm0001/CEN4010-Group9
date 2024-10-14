@@ -1,37 +1,39 @@
 package group9.geektext.service;
 
+import group9.geektext.dto.CreditCardDTO;
 import group9.geektext.entity.CreditCard;
+import group9.geektext.entity.User;
 import group9.geektext.repository.CreditCardRepository;
+import group9.geektext.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CreditCardService {
 
     private final CreditCardRepository creditCardRepository;
+    private final UserRepository userRepository;
 
-    public CreditCardService(CreditCardRepository creditCardRepository) {
+    public CreditCardService(CreditCardRepository creditCardRepository, UserRepository userRepository) {
         this.creditCardRepository = creditCardRepository;
+        this.userRepository = userRepository;
     }
 
-    // Get all credit cards for a user
-    public List<CreditCard> getCreditCardsByUser(Long userId) {
-        return creditCardRepository.findByUser_Id(userId);
+    public List<CreditCard> getCreditCardsByUserId(Long userId) {
+        return creditCardRepository.findByUserId(userId);  // Correct method
     }
 
-    // Save a new credit card
-    public CreditCard createCreditCard(CreditCard creditCard) {
+    public CreditCard addCreditCard(String username, CreditCardDTO creditCardDTO) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+        CreditCard creditCard = new CreditCard(
+                creditCardDTO.getCardNumber(),
+                creditCardDTO.getExpirationDate(),
+                creditCardDTO.getCvv(),
+                creditCardDTO.getCardHolderName()
+        );
+        creditCard.setUser(user);
         return creditCardRepository.save(creditCard);
-    }
-
-    // Update a credit card
-    public CreditCard updateCreditCard(CreditCard creditCard) {
-        return creditCardRepository.save(creditCard);
-    }
-
-    // Delete a credit card
-    public void deleteCreditCard(Long creditCardId) {
-        creditCardRepository.deleteById(creditCardId);
     }
 }

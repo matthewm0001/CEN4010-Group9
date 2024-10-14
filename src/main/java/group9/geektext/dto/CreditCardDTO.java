@@ -1,37 +1,17 @@
-package group9.geektext.entity;
+package group9.geektext.dto;
 
-import jakarta.persistence.*;
+public class CreditCardDTO {
 
-@Entity
-@Table(name = "creditcards")
-public class CreditCard {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "card_number", nullable = false)
     private String cardNumber;
-
-    @Column(name = "expiration_date", nullable = false)
     private String expirationDate;
-
-    @Column(name = "cvv", nullable = false)
     private String cvv;
-
-    @Column(name = "card_holder_name", nullable = false)
     private String cardHolderName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    // No-argument constructor (required by JPA)
-    public CreditCard() {
-    }
+    // No-argument constructor
+    public CreditCardDTO() {}
 
     // Parameterized constructor
-    public CreditCard(String cardNumber, String expirationDate, String cvv, String cardHolderName) {
+    public CreditCardDTO(String cardNumber, String expirationDate, String cvv, String cardHolderName) {
         this.cardNumber = cardNumber;
         this.expirationDate = expirationDate;
         this.cvv = cvv;
@@ -39,14 +19,6 @@ public class CreditCard {
     }
 
     // Getters and setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getCardNumber() {
         return cardNumber;
     }
@@ -77,13 +49,5 @@ public class CreditCard {
 
     public void setCardHolderName(String cardHolderName) {
         this.cardHolderName = cardHolderName;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
