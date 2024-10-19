@@ -20,19 +20,13 @@ public class Book {
     @Column(nullable = false)
     private String genre;
 
-    @Column(nullable = false)
     private String description;
-
-    @Column(nullable = false)
     private String publisher;
 
     @Column(nullable = false)
     private double price;
 
-    @Column(nullable = false)
     private int copiesSold;
-
-    @Column(nullable = false)
     private int yearPublished;
 
     @Column(nullable = false)
@@ -43,12 +37,14 @@ public class Book {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "author_id", nullable = false)
-    private Author author;  // Full Author object without DTO
+    private Author author; // Full Author object without DTO
 
     // Constructors
-    public Book() {}
+    public Book() {
+    }
 
-    public Book(String isbn, String title, String genre, String description, String publisher, double price, int copiesSold, int yearPublished) {
+    public Book(String isbn, String title, String genre, String description, String publisher, double price,
+            int copiesSold, int yearPublished) {
         this.isbn = isbn;
         this.title = title;
         this.genre = genre;
@@ -59,7 +55,8 @@ public class Book {
         this.yearPublished = yearPublished;
     }
 
-    public Book(String isbn, String title, String genre, String description, String publisher, double price, int copiesSold, int yearPublished, String authorFirstName, String authorLastName) {
+    public Book(String isbn, String title, String genre, String description, String publisher, double price,
+            int copiesSold, int yearPublished, String authorFirstName, String authorLastName) {
         this.isbn = isbn;
         this.title = title;
         this.genre = genre;
@@ -160,6 +157,4 @@ public class Book {
     public void setAuthorLastName(String authorLastName) {
         this.authorLastName = authorLastName;
     }
-
-
 }

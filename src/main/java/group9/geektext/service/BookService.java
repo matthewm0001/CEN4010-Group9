@@ -33,8 +33,8 @@ public class BookService {
     }
 
     public BookDTO createBook(BookDTO bookDTORequest) {
-        Book book = convertToEntity(bookDTORequest);  // Convert DTO to entity
-        Book savedBook = bookRepository.save(book);  // Save the entity
+        Book book = convertToEntity(bookDTORequest); // Convert DTO to entity
+        Book savedBook = bookRepository.save(book); // Save the entity
 
         return convertToDTO(savedBook);
     }
@@ -64,12 +64,12 @@ public class BookService {
                 book.getTitle(),
                 book.getGenre(),
                 book.getPrice(),
-                book.getDescription(),   // Description field
-                book.getPublisher(),     // Publisher field
+                book.getDescription(), // Description field
+                book.getPublisher(), // Publisher field
                 book.getYearPublished(), // Year Published field
-                book.getCopiesSold(),   // Copies Sold field
-                book.getAuthorFirstName(),   // Author First Name field
-                book.getAuthorLastName()   // Author Last Name field
+                book.getCopiesSold(), // Copies Sold field
+                book.getAuthorFirstName(), // Author First Name field
+                book.getAuthorLastName() // Author Last Name field
         );
     }
 }

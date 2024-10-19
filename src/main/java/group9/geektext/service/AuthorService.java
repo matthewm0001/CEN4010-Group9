@@ -22,22 +22,22 @@ public class AuthorService {
     // Fetch all authors and convert to AuthorFullDTOs
     public List<AuthorFullDTO> getAllAuthors() {
         return authorRepository.findAll().stream()
-                .map(this::convertToDTO)  // Convert each Author entity to AuthorFullDTO
+                .map(this::convertToDTO) // Convert each Author entity to AuthorFullDTO
                 .collect(Collectors.toList());
     }
 
     // Fetch a single author by ID and convert to AuthorFullDTO
     public AuthorFullDTO getAuthorById(Long id) {
         return authorRepository.findById(id)
-                .map(this::convertToDTO)  // Convert to DTO if the author is found
-                .orElse(null);  // Return null if the author is not found
+                .map(this::convertToDTO) // Convert to DTO if the author is found
+                .orElse(null); // Return null if the author is not found
     }
 
     // Create a new author
     public AuthorFullDTO createAuthor(AuthorFullDTO authorDTO) {
-        Author author = convertToEntity(authorDTO);  // Convert DTO to entity
-        Author savedAuthor = authorRepository.save(author);  // Save the entity
-        return convertToDTO(savedAuthor);  // Return saved entity as DTO
+        Author author = convertToEntity(authorDTO); // Convert DTO to entity
+        Author savedAuthor = authorRepository.save(author); // Save the entity
+        return convertToDTO(savedAuthor); // Return saved entity as DTO
     }
 
     // Update an existing author
@@ -48,9 +48,9 @@ public class AuthorService {
             existingAuthor.setBiography(authorDTO.getBiography());
             // Add other fields as necessary...
 
-            Author updatedAuthor = authorRepository.save(existingAuthor);  // Save the updated entity
-            return convertToDTO(updatedAuthor);  // Return the updated entity as a DTO
-        }).orElse(null);  // Return null if the author is not found
+            Author updatedAuthor = authorRepository.save(existingAuthor); // Save the updated entity
+            return convertToDTO(updatedAuthor); // Return the updated entity as a DTO
+        }).orElse(null); // Return null if the author is not found
     }
 
     // Delete an author by ID
@@ -66,9 +66,8 @@ public class AuthorService {
                 author.getLastName(),
                 author.getBiography(),
                 author.getBooks().stream()
-                        .map(this::convertBookToDTO)  // Convert each Book entity to BookDTO
-                        .collect(Collectors.toList())
-        );
+                        .map(this::convertBookToDTO) // Convert each Book entity to BookDTO
+                        .collect(Collectors.toList()));
     }
 
     // Helper method to convert Book entity to BookDTO
@@ -79,12 +78,12 @@ public class AuthorService {
                 book.getTitle(),
                 book.getGenre(),
                 book.getPrice(),
-                book.getDescription(),   // Description field
-                book.getPublisher(),     // Publisher field
+                book.getDescription(), // Description field
+                book.getPublisher(), // Publisher field
                 book.getYearPublished(), // Year Published field
-                book.getCopiesSold(),   // Copies Sold field
-                book.getAuthorFirstName(),   // Author First Name field
-                book.getAuthorLastName()   // Author Last Name field
+                book.getCopiesSold(), // Copies Sold field
+                book.getAuthorFirstName(), // Author First Name field
+                book.getAuthorLastName() // Author Last Name field
         );
     }
 
