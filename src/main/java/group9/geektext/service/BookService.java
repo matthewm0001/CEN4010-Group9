@@ -1,5 +1,6 @@
 package group9.geektext.service;
 
+import group9.geektext.entity.Author;
 import group9.geektext.entity.Book;
 import group9.geektext.repository.BookRepository;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,11 @@ public class BookService {
         return bookRepository.findById(id).orElse(null);
     }
 
+    public Author getBookAuthor(Long author_id) {
+        return AuthorService.getAuthorByIdForBook(author_id);
+    }
+
     public Book createBook(Book book) {
-        // Save a new book
         return bookRepository.save(book);
     }
 

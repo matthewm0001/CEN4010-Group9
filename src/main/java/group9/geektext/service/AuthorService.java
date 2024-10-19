@@ -21,6 +21,11 @@ public class AuthorService {
         return authorRepository.findAll();
     }
 
+    // Find author by ID for book
+    public Author getAuthorByIdForBook(Long authorId) {
+        return authorRepository.findById(authorId);
+    }
+
     // Find author by ID
     public Optional<Author> getAuthorById(Long authorId) {
         return authorRepository.findById(authorId);
