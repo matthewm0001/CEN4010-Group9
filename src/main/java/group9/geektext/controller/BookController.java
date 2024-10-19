@@ -1,6 +1,5 @@
 package group9.geektext.controller;
 
-import group9.geektext.entity.Author;
 import group9.geektext.entity.Book;
 import group9.geektext.service.BookService;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +31,9 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody Book book, Long author_id) {
-        Author bookAuthor = bookService.getBookAuthor(author_id);
-        Book Newbook = new Book(book.getIsbn(),book.getTitle(),book.getGenre(),book.getDescription(),book.getPublisher(),book.getPrice(),book.getCopiesSold(),book.getYearPublished(),bookAuthor);
-
+    public ResponseEntity<Book> createBook(@RequestBody Book book) {
         // Create a new book
-        Book createdBook = bookService.createBook(Newbook);
+        Book createdBook = bookService.createBook(book);
         return ResponseEntity.ok(createdBook);
     }
 
