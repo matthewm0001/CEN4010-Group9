@@ -44,18 +44,6 @@ public class Book {
     }
 
     public Book(String isbn, String title, String genre, String description, String publisher, double price,
-            int copiesSold, int yearPublished) {
-        this.isbn = isbn;
-        this.title = title;
-        this.genre = genre;
-        this.description = description;
-        this.publisher = publisher;
-        this.price = price;
-        this.copiesSold = copiesSold;
-        this.yearPublished = yearPublished;
-    }
-
-    public Book(String isbn, String title, String genre, String description, String publisher, double price,
             int copiesSold, int yearPublished, String authorFirstName, String authorLastName) {
         this.isbn = isbn;
         this.title = title;

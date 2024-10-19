@@ -17,19 +17,6 @@ public class BookDTO {
     private String authorLastName;
 
     // Constructor
-    public BookDTO(Long id, String isbn, String title, String genre, double price, String description, String publisher, int yearPublished, int copiesSold) {
-        this.id = id;
-        this.isbn = isbn;
-        this.title = title;
-        this.genre = genre;
-        this.price = price;
-        this.description = description;
-        this.publisher = publisher;
-        this.yearPublished = yearPublished;
-        this.copiesSold = copiesSold;
-    }
-
-    // Constructor
     public BookDTO(Long id, String isbn, String title, String genre, double price, String description, String publisher, int yearPublished, int copiesSold,  String authorFirstName, String authorLastName) {
         this.id = id;
         this.isbn = isbn;
