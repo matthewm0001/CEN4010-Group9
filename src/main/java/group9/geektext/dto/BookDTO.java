@@ -1,73 +1,45 @@
-package group9.geektext.entity;
+package group9.geektext.dto;
 
-import group9.geektext.dto.AuthorDTO;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
 
-@Entity
-@Table(name = "books")
-public class Book {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class BookDTO {
     private Long id;
-
-    @Column(nullable = false)
     private String isbn;
-
-    @Column(nullable = false)
     private String title;
-
-    @Column(nullable = false)
     private String genre;
-
-    @Column(nullable = false)
-    private String description;
-
-    @Column(nullable = false)
-    private String publisher;
-
-    @Column(nullable = false)
     private double price;
-
-    @Column(nullable = false)
-    private int copiesSold;
-
-    @Column(nullable = false)
-    private int yearPublished;
-
-    @Column(nullable = false)
+    private String description;
+    private String publisher;
+    private int yearPublished;    // Add this field
+    private int copiesSold;       // Add this field
+    private AuthorDTO author;     // AuthorDTO contains only firstName and lastName
     private String authorFirstName;
-
-    @Column(nullable = false)
     private String authorLastName;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "author_id", nullable = false)
-    private Author author;  // Full Author object without DTO
-
-    // Constructors
-    public Book() {}
-
-    public Book(String isbn, String title, String genre, String description, String publisher, double price, int copiesSold, int yearPublished) {
+    // Constructor
+    public BookDTO(Long id, String isbn, String title, String genre, double price, String description, String publisher, int yearPublished, int copiesSold) {
+        this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.genre = genre;
+        this.price = price;
         this.description = description;
         this.publisher = publisher;
-        this.price = price;
-        this.copiesSold = copiesSold;
         this.yearPublished = yearPublished;
+        this.copiesSold = copiesSold;
     }
 
-    public Book(String isbn, String title, String genre, String description, String publisher, double price, int copiesSold, int yearPublished, String authorFirstName, String authorLastName) {
+    // Constructor
+    public BookDTO(Long id, String isbn, String title, String genre, double price, String description, String publisher, int yearPublished, int copiesSold,  String authorFirstName, String authorLastName) {
+        this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.genre = genre;
+        this.price = price;
         this.description = description;
         this.publisher = publisher;
-        this.price = price;
-        this.copiesSold = copiesSold;
         this.yearPublished = yearPublished;
+        this.copiesSold = copiesSold;
         this.authorFirstName = authorFirstName;
         this.authorLastName = authorLastName;
     }
@@ -105,6 +77,14 @@ public class Book {
         this.genre = genre;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -121,12 +101,12 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public double getPrice() {
-        return price;
+    public int getYearPublished() {
+        return yearPublished;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setYearPublished(int yearPublished) {
+        this.yearPublished = yearPublished;
     }
 
     public int getCopiesSold() {
@@ -137,12 +117,12 @@ public class Book {
         this.copiesSold = copiesSold;
     }
 
-    public int getYearPublished() {
-        return yearPublished;
+    public AuthorDTO getAuthor() {
+        return author;
     }
 
-    public void setYearPublished(int yearPublished) {
-        this.yearPublished = yearPublished;
+    public void setAuthor(AuthorDTO author) {
+        this.author = author;
     }
 
     public String getAuthorFirstName() {
@@ -160,6 +140,5 @@ public class Book {
     public void setAuthorLastName(String authorLastName) {
         this.authorLastName = authorLastName;
     }
-
 
 }
