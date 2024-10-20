@@ -1,0 +1,142 @@
+import java.sql.*;
+	import java.util.ArrayList;
+	import java.util.List;
+
+ class Book {
+	
+	    private String title;
+	    private String author;
+	    private String genre;
+	    private int rating;
+	    private int copiesSold;
+	    private double price;
+	    private String publisher;
+
+	    public Book(String title, String author, String genre, int rating, int copiesSold, double price, String publisher) {
+	        this.title = title;
+	        this.author = author;
+	        this.genre = genre;
+	        this.rating = rating;
+	        this.copiesSold = copiesSold;
+	        this.price = price;
+	        this.publisher = publisher;
+	    }
+
+	    public String getPublisher() {
+	        return publisher;
+	    }
+
+	    public double getPrice() {
+	        return price;
+	    }
+
+	    public void setPrice(double price) {
+	        this.price = price;
+	    }
+
+	    public String getTitle() {
+	        return title;
+	    }
+
+	    public String getGenre() {
+	        return genre;
+	    }
+
+	    public int getRating() {
+	        return rating;
+	    }
+
+	    @Override
+	    public String toString() {
+	        return "Book{" +
+	                "title='" + title + '\'' +
+	                ", author='" + author + '\'' +
+	                ", genre='" + genre + '\'' +
+	                ", rating=" + rating +
+	                ", copiesSold=" + copiesSold +
+	                ", price=" + price +
+	                ", publisher='" + publisher + '\'' +
+	                '}';
+	    }
+	}
+
+	public class BookStore {
+	    private Connection connection;
+        
+	    
+	    public class DatabaseQuery {
+	        public static void main(String[] args) {
+	           	            
+	        }
+	    }
+
+	    
+	    public BookStore() {
+	        // Initialize database connection
+	        try {
+	            // Connect to MySQL database
+	            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/BookStore", "root", "Bluebonnet4$");
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    // Retrieve all books from the database
+	    public List<Book> getBooks() {
+	        List<Book> books = new ArrayList<>();
+	        try {
+	            String query = "SELECT * FROM books";
+	            Statement statement = connection.createStatement();
+	            ResultSet resultSet = statement.executeQuery(query);
+
+	            while (resultSet.next()) {
+	                String title = resultSet.getString("title");
+	                String author = resultSet.getString("author");
+	                String genre = resultSet.getString("genre");
+	                int rating = resultSet.getInt("rating");
+	                int copiesSold = resultSet.getInt("copies_sold");
+	                double price = resultSet.getDouble("price");
+	                String publisher = resultSet.getString("publisher");
+
+	                books.add(new Book(title, author, genre, rating, copiesSold, price, publisher));
+	            }
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return books;
+	    }
+
+	    // Update price of all books by a publisher with a discount percent
+	    public void applyDiscountByPublisher(String publisher, double discountPercent) {
+	        try {
+	            String query = "UPDATE books SET price = price * ? WHERE publisher = ?";
+	            PreparedStatement preparedStatement = connection.prepareStatement(query);
+	            preparedStatement.setDouble(1, 1 - (discountPercent / 100));
+	            preparedStatement.setString(2, publisher);
+
+	            int rowsUpdated = preparedStatement.executeUpdate();
+	            System.out.println(rowsUpdated + " books updated with discount for publisher: " + publisher);
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    public static void main(String[] args) {
+	        BookStore bookStore = new BookStore();
+
+	        System.out.println("Before Discount:");
+	        for (Book book : bookStore.getBooks()) {
+	            System.out.println(book);
+	        }
+
+	        // Apply 10% discount on books by "Publisher1"
+	        bookStore.applyDiscountByPublisher("Publisher1", 10.0);
+
+	        System.out.println("\nAfter Discount:");
+	        for (Book book : bookStore.getBooks()) {
+	            System.out.println(book);
+	        }
+	    }
+	}
