@@ -70,11 +70,20 @@ public class UserService {
         }
     }
 
-    // Update user details, excluding email
+    // Update user details, including username if provided
     public void updateUserDetails(String username, UserDTO userDTO) {
         Optional<User> userOpt = userRepository.findByUsername(username);
         if (userOpt.isPresent()) {
             User user = userOpt.get();
+
+            // Check if the new username is different and doesn't already exist
+            if (!username.equals(userDTO.getUsername())) {
+                Optional<User> existingUser = userRepository.findByUsername(userDTO.getUsername());
+                if (existingUser.isPresent()) {
+                    throw new RuntimeException("Username already taken");
+                }
+                user.setUsername(userDTO.getUsername());
+            }
 
             // Update only the provided fields
             user.setName(userDTO.getName());
@@ -87,6 +96,7 @@ public class UserService {
             throw new RuntimeException("User not found");
         }
     }
+
 
     // Create a new user
     public void createUser(UserDTO userDTO) {

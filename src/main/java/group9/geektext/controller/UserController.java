@@ -40,7 +40,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    // PUT or PATCH request to update the user details
+    // PUT or PATCH request to update the user details, excluding email
     @PutMapping("/{username}")
     public ResponseEntity<Void> updateUserDetails(@PathVariable String username, @RequestBody UserDTO userDTO) {
         userService.updateUserDetails(username, userDTO);

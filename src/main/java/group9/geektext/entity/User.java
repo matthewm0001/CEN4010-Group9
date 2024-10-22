@@ -18,22 +18,25 @@ public class User {
     private String password;
 
     private String name;
+
+    @Column(nullable = false, unique = true) // Ensure email is unique and cannot be null
     private String email;
 
-    @Column(name = "address") // Ensure this maps correctly to the database field 'address'
+    @Column(name = "address")  // Ensure this maps correctly to the database field 'address'
     private String homeAddress;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CreditCard> creditCards;
 
-    // Constructors, getters, and setters
+    // Default constructor
     public User() {}
 
+    // Constructor with all fields except email
     public User(String username, String password, String name, String email, String homeAddress) {
         this.username = username;
         this.password = password;
         this.name = name;
-        this.email = email;
+        this.email = email;  // Email is only set once, during user creation
         this.homeAddress = homeAddress;
     }
 
@@ -70,12 +73,9 @@ public class User {
         this.name = name;
     }
 
+    // Remove the email setter to prevent changes to the email address
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getHomeAddress() {
