@@ -10,11 +10,25 @@ public class AuthorFullDTO {
     private List<BookDTO> books;  // List of books the author has written
 
     // Constructor
+    public AuthorFullDTO() {
+    }
+
+    // Constructor
+    public AuthorFullDTO(Long id, String firstName, String lastName, String biography, String publisher) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.biography = biography;
+        this.publisher = publisher;
+    }
+
+    // Constructor
     public AuthorFullDTO(Long id, String firstName, String lastName, String biography, String publisher, List<BookDTO> books) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.biography = biography;
+        this.publisher = publisher;
         this.books = books;
     }
 

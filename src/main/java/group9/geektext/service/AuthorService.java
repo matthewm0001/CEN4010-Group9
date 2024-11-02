@@ -60,15 +60,26 @@ public class AuthorService {
 
     // Convert an Author entity to AuthorFullDTO
     private AuthorFullDTO convertToDTO(Author author) {
-        return new AuthorFullDTO(
-                author.getId(),
-                author.getFirstName(),
-                author.getLastName(),
-                author.getBiography(),
-                author.getPublisher(),
-                author.getBooks().stream()
-                        .map(this::convertBookToDTO) // Convert each Book entity to BookDTO
-                        .collect(Collectors.toList()));
+
+        if (author.getBooks() == null) {
+            return new AuthorFullDTO(
+                    author.getId(),
+                    author.getFirstName(),
+                    author.getLastName(),
+                    author.getBiography(),
+                    author.getPublisher());
+        } else {
+            return new AuthorFullDTO(
+                    author.getId(),
+                    author.getFirstName(),
+                    author.getLastName(),
+                    author.getBiography(),
+                    author.getPublisher(),
+                    author.getBooks().stream()
+                            .map(this::convertBookToDTO) // Convert each Book entity to BookDTO
+                            .collect(Collectors.toList()));
+        }
+
     }
 
     // Helper method to convert Book entity to BookDTO
@@ -93,6 +104,7 @@ public class AuthorService {
         author.setFirstName(authorDTO.getFirstName());
         author.setLastName(authorDTO.getLastName());
         author.setBiography(authorDTO.getBiography());
+        author.setPublisher(authorDTO.getPublisher());
         // Add other fields if necessary...
         return author;
     }
