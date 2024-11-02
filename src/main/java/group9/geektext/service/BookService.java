@@ -69,4 +69,17 @@ public class BookService {
                 book.getAuthor()
         );
     }
+
+    // Convert an Author entity to AuthorFullDTO
+    private AuthorFullDTO convertAuthorToDTO(Author author) {
+        return new AuthorFullDTO(
+                author.getId(),
+                author.getFirstName(),
+                author.getLastName(),
+                author.getBiography(),
+                author.getPublisher(),
+                author.getBooks().stream()
+                        .map(this::convertToDTO) // Convert each Book entity to BookDTO
+                        .collect(Collectors.toList()));
+    }
 }

@@ -6,10 +6,11 @@ public class AuthorFullDTO {
     private String firstName;
     private String lastName;
     private String biography;
+    private String publisher;
     private List<BookDTO> books;  // List of books the author has written
 
     // Constructor
-    public AuthorFullDTO(Long id, String firstName, String lastName, String biography, List<BookDTO> books) {
+    public AuthorFullDTO(Long id, String firstName, String lastName, String biography, String publisher, List<BookDTO> books) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -48,6 +49,14 @@ public class AuthorFullDTO {
 
     public void setBiography(String biography) {
         this.biography = biography;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     public List<BookDTO> getBooks() {

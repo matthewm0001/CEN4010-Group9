@@ -65,6 +65,7 @@ public class AuthorService {
                 author.getFirstName(),
                 author.getLastName(),
                 author.getBiography(),
+                author.getPublisher(),
                 author.getBooks().stream()
                         .map(this::convertBookToDTO) // Convert each Book entity to BookDTO
                         .collect(Collectors.toList()));

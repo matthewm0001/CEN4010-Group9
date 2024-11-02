@@ -70,6 +70,14 @@ public class Author {
         this.biography = biography;
     }
 
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
     public List<Book> getBooks() {
         return books;
     }
