@@ -17,7 +17,11 @@ public class Author {
     @Column(nullable = false)
     private String lastName;
 
+    @Column(nullable = false)
     private String biography;  // Other fields
+
+    @Column(nullable = false)
+    private String publisher;
 
     @OneToMany(mappedBy = "author")
     private List<Book> books;
@@ -25,10 +29,12 @@ public class Author {
     // Constructors
     public Author() {}
 
-    public Author(String firstName, String lastName, String biography) {
+    public Author(String firstName, String lastName, String biography, String publisher, List<Book> books) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.biography = biography;
+        this.publisher = publisher;
+        this.books = books;
     }
 
     // Getters and Setters

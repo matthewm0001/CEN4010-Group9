@@ -29,14 +29,8 @@ public class Book {
     private int copiesSold;
     private int yearPublished;
 
-    @Column(nullable = false)
-    private String authorFirstName;
-
-    @Column(nullable = false)
-    private String authorLastName;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "author_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "author_id", nullable = true)
     private Author author; // Full Author object without DTO
 
     // Constructors
@@ -44,7 +38,7 @@ public class Book {
     }
 
     public Book(String isbn, String title, String genre, String description, String publisher, double price,
-            int copiesSold, int yearPublished, String authorFirstName, String authorLastName) {
+            int copiesSold, int yearPublished, Author author) {
         this.isbn = isbn;
         this.title = title;
         this.genre = genre;
@@ -53,8 +47,7 @@ public class Book {
         this.price = price;
         this.copiesSold = copiesSold;
         this.yearPublished = yearPublished;
-        this.authorFirstName = authorFirstName;
-        this.authorLastName = authorLastName;
+        this.author = author;
     }
 
     // Getters and Setters
@@ -130,19 +123,7 @@ public class Book {
         this.yearPublished = yearPublished;
     }
 
-    public String getAuthorFirstName() {
-        return authorFirstName;
-    }
+    public Author getAuthor() { return author; }
 
-    public void setAuthorFirstName(String authorFirstName) {
-        this.authorFirstName = authorFirstName;
-    }
-
-    public String getAuthorLastName() {
-        return authorLastName;
-    }
-
-    public void setAuthorLastName(String authorLastName) {
-        this.authorLastName = authorLastName;
-    }
+    public void setAuthor(Author author) {this.author = author;}
 }

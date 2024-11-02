@@ -1,5 +1,6 @@
 package group9.geektext.dto;
 
+import group9.geektext.entity.Author;
 import jakarta.persistence.Column;
 
 public class BookDTO {
@@ -12,12 +13,10 @@ public class BookDTO {
     private String publisher;
     private int yearPublished;    // Add this field
     private int copiesSold;       // Add this field
-    private AuthorDTO author;     // AuthorDTO contains only firstName and lastName
-    private String authorFirstName;
-    private String authorLastName;
+    private Author author;     // AuthorDTO contains only firstName and lastName
 
     // Constructor
-    public BookDTO(Long id, String isbn, String title, String genre, double price, String description, String publisher, int yearPublished, int copiesSold,  String authorFirstName, String authorLastName) {
+    public BookDTO(Long id, String isbn, String title, String genre, double price, String description, String publisher, int yearPublished, int copiesSold, Author author) {
         this.id = id;
         this.isbn = isbn;
         this.title = title;
@@ -27,8 +26,7 @@ public class BookDTO {
         this.publisher = publisher;
         this.yearPublished = yearPublished;
         this.copiesSold = copiesSold;
-        this.authorFirstName = authorFirstName;
-        this.authorLastName = authorLastName;
+        this.author = author;
     }
 
     // Getters and Setters
@@ -104,28 +102,12 @@ public class BookDTO {
         this.copiesSold = copiesSold;
     }
 
-    public AuthorDTO getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(AuthorDTO author) {
+    public void setAuthor(Author author) {
         this.author = author;
-    }
-
-    public String getAuthorFirstName() {
-        return authorFirstName;
-    }
-
-    public void setAuthorFirstName(String authorFirstName) {
-        this.authorFirstName = authorFirstName;
-    }
-
-    public String getAuthorLastName() {
-        return authorLastName;
-    }
-
-    public void setAuthorLastName(String authorLastName) {
-        this.authorLastName = authorLastName;
     }
 
 }

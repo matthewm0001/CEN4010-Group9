@@ -82,8 +82,7 @@ public class AuthorService {
                 book.getPublisher(), // Publisher field
                 book.getYearPublished(), // Year Published field
                 book.getCopiesSold(), // Copies Sold field
-                book.getAuthorFirstName(), // Author First Name field
-                book.getAuthorLastName() // Author Last Name field
+                book.getAuthor()
         );
     }
 

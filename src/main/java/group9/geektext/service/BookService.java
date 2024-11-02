@@ -51,8 +51,6 @@ public class BookService {
         book.setPublisher(bookDTORequest.getPublisher());
         book.setYearPublished(bookDTORequest.getYearPublished());
         book.setCopiesSold(bookDTORequest.getCopiesSold());
-        book.setAuthorFirstName(bookDTORequest.getAuthorFirstName());
-        book.setAuthorLastName(bookDTORequest.getAuthorLastName());
         return book;
     }
 
@@ -68,8 +66,7 @@ public class BookService {
                 book.getPublisher(), // Publisher field
                 book.getYearPublished(), // Year Published field
                 book.getCopiesSold(), // Copies Sold field
-                book.getAuthorFirstName(), // Author First Name field
-                book.getAuthorLastName() // Author Last Name field
+                book.getAuthor()
         );
     }
 }
