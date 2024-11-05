@@ -16,7 +16,7 @@ public class AuthorService {
         this.authorRepository = authorRepository;
     }
 
-    // Get all authors
+    // Get all authors. Sweet.
     public List<Author> getAllAuthors() {
         return authorRepository.findAll();
     }
