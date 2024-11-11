@@ -11,16 +11,16 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
+    @Column(name = "biography", nullable = false)
     private String biography;  // Other fields
 
-    @Column(nullable = false)
+    @Column(name = "publisher", nullable = false)
     private String publisher;
 
     @OneToMany(mappedBy = "author")

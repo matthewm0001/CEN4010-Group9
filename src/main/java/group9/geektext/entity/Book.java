@@ -11,22 +11,28 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "isbn", nullable = false)
     private String isbn;
 
-    @Column(nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(name = "genre", nullable = false)
     private String genre;
 
+    @Column(name = "description", nullable = false)
     private String description;
+
+    @Column(name = "publisher", nullable = false)
     private String publisher;
 
-    @Column(nullable = false)
+    @Column(name = "price", nullable = false)
     private double price;
 
+    @Column(name = "copies_sold", nullable = false)
     private int copiesSold;
+
+    @Column(name = "year_published", nullable = false)
     private int yearPublished;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
