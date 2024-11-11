@@ -10,32 +10,40 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "isbn", nullable = false)
     private String isbn;
 
-    @Column(nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(name = "genre", nullable = false)
     private String genre;
 
+    @Column(name = "description", nullable = false)
     private String description;
+
+    @Column(name = "publisher", nullable = false)
     private String publisher;
 
-    @Column(nullable = false)
+    @Column(name = "price", nullable = false)
     private double price;
 
+    @Column(name = "copies_sold", nullable = false)
     private int copiesSold;
+
+    @Column(name = "year_published", nullable = false)
     private int yearPublished;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
-    private Author author;  // Full Author object without DTO
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "author_id", nullable = true)
+    private Author author; // Full Author object without DTO
 
     // Constructors
-    public Book() {}
+    public Book() {
+    }
 
-    public Book(String isbn, String title, String genre, String description, String publisher, double price, int copiesSold, int yearPublished, Author author) {
+    public Book(String isbn, String title, String genre, String description, String publisher, double price,
+            int copiesSold, int yearPublished, Author author) {
         this.isbn = isbn;
         this.title = title;
         this.genre = genre;
@@ -120,11 +128,7 @@ public class Book {
         this.yearPublished = yearPublished;
     }
 
-    public Author getAuthor() {
-        return author;
-    }
+    public Author getAuthor() { return author; }
 
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
+    public void setAuthor(Author author) {this.author = author;}
 }

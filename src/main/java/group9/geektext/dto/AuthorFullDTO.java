@@ -1,35 +1,30 @@
-package group9.geektext.entity;
-
-import jakarta.persistence.*;
+package group9.geektext.dto;
 import java.util.List;
 
-@Entity
-@Table(name = "authors")
-public class Author {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AuthorFullDTO {
     private Long id;
-
-    @Column(name = "first_name", nullable = false)
     private String firstName;
-
-    @Column(name = "last_name", nullable = false)
     private String lastName;
-
-    @Column(name = "biography", nullable = false)
-    private String biography;  // Other fields
-
-    @Column(name = "publisher", nullable = false)
+    private String biography;
     private String publisher;
+    private List<BookDTO> books;  // List of books the author has written
 
-    @OneToMany(mappedBy = "author")
-    private List<Book> books;
+    // Constructor
+    public AuthorFullDTO() {
+    }
 
-    // Constructors
-    public Author() {}
+    // Constructor
+    public AuthorFullDTO(Long id, String firstName, String lastName, String biography, String publisher) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.biography = biography;
+        this.publisher = publisher;
+    }
 
-    public Author(String firstName, String lastName, String biography, String publisher, List<Book> books) {
+    // Constructor
+    public AuthorFullDTO(Long id, String firstName, String lastName, String biography, String publisher, List<BookDTO> books) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.biography = biography;
@@ -78,11 +73,11 @@ public class Author {
         this.publisher = publisher;
     }
 
-    public List<Book> getBooks() {
+    public List<BookDTO> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(List<BookDTO> books) {
         this.books = books;
     }
 }
