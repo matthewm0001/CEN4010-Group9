@@ -1,6 +1,5 @@
 package group9.geektext.service;
 
-import group9.geektext.dto.AuthorDTO;
 import group9.geektext.dto.AuthorFullDTO;
 import group9.geektext.dto.BookDTO;
 import group9.geektext.entity.Author;
@@ -38,6 +37,29 @@ public class BookService {
 
         return convertToDTO(savedBook);
     }
+
+    // Update an existing book
+    public BookDTO updateBook(Long id, BookDTO bookDTO) {
+        return bookRepository.findById(id).map(existingBook -> {
+            existingBook.setIsbn(bookDTO.getIsbn());
+            existingBook.setTitle(bookDTO.getTitle());
+            existingBook.setGenre(bookDTO.getGenre());
+            existingBook.setPrice(bookDTO.getPrice());
+            existingBook.setDescription(bookDTO.getDescription());
+            existingBook.setPublisher(bookDTO.getPublisher());
+            existingBook.setYearPublished(bookDTO.getYearPublished());
+            existingBook.setCopiesSold(bookDTO.getCopiesSold());
+
+            Book updatedBook = bookRepository.save(existingBook); // Save the updated entity
+            return convertToDTO(updatedBook); // Return the updated entity as a DTO
+        }).orElse(null); // Return null if the author is not found
+    }
+
+    // Delete an author by ID
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
+    }
+
 
     // Convert an BookDTO to an Book entity
     private Book convertToEntity(BookDTO bookDTORequest) {
