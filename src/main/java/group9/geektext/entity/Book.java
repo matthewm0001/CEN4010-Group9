@@ -1,6 +1,5 @@
 package group9.geektext.entity;
 
-import group9.geektext.dto.AuthorDTO;
 import jakarta.persistence.*;
 
 @Entity
