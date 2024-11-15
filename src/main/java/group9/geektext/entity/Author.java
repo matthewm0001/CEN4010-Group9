@@ -29,6 +29,8 @@ public class Author {
     // Constructors
     public Author() {}
 
+    public Author(Long id) {this.id = id;}
+
     public Author(String firstName, String lastName, String biography, String publisher, List<Book> books) {
         this.firstName = firstName;
         this.lastName = lastName;

@@ -73,6 +73,7 @@ public class BookService {
         book.setPublisher(bookDTORequest.getPublisher());
         book.setYearPublished(bookDTORequest.getYearPublished());
         book.setCopiesSold(bookDTORequest.getCopiesSold());
+        book.setAuthor(bookDTORequest.getAuthor());
         return book;
     }
 
