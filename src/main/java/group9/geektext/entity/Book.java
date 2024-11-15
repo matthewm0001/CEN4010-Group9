@@ -35,7 +35,7 @@ public class Book {
     private int yearPublished;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "author_id", nullable = true)
+    @JoinColumn(name = "author_id", nullable = true, foreignKey = @ForeignKey(name = "books_ibfk_1"))
     private Author author; // Full Author object without DTO
 
     // Constructors
