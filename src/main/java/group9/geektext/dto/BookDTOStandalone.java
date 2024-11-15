@@ -1,9 +1,6 @@
 package group9.geektext.dto;
 
-import group9.geektext.entity.Author;
-import jakarta.persistence.Column;
-
-public class BookDTO {
+public class BookDTOStandalone {
     private Long id;
     private String isbn;
     private String title;
@@ -13,13 +10,17 @@ public class BookDTO {
     private String publisher;
     private int yearPublished;    // Add this field
     private int copiesSold;       // Add this field
-    private Author author;     // AuthorDTO contains only firstName and lastName
+    private Long authorId;
+    private String authorFirstName;
+    private String authorLastName;
+    private String authorBiography;
+    private String authorPublisher;
 
     // Constructor
-    public BookDTO() {
+    public BookDTOStandalone() {
     }
 
-    public BookDTO(Long id, String isbn, String title, String genre, double price, String description, String publisher, int yearPublished, int copiesSold, Author author) {
+    public BookDTOStandalone(Long id, String isbn, String title, String genre, double price, String description, String publisher, int yearPublished, int copiesSold) {
         this.id = id;
         this.isbn = isbn;
         this.title = title;
@@ -29,19 +30,23 @@ public class BookDTO {
         this.publisher = publisher;
         this.yearPublished = yearPublished;
         this.copiesSold = copiesSold;
-        this.author = author;
     }
 
-    public BookDTO(Long id, String isbn, String title, String genre, double price, String description, String publisher, int yearPublished, int copiesSold) {
+    public BookDTOStandalone(Long id, String isbn, String title, String genre, double price, String description, String publisher, int yearPublished, int copiesSold, Long authorId, String authorFirstName, String authorLastName, String authorBiography, String authorPublisher) {
+        this.publisher = publisher;
         this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.genre = genre;
         this.price = price;
         this.description = description;
-        this.publisher = publisher;
         this.yearPublished = yearPublished;
         this.copiesSold = copiesSold;
+        this.authorId = authorId;
+        this.authorFirstName = authorFirstName;
+        this.authorLastName = authorLastName;
+        this.authorBiography = authorBiography;
+        this.authorPublisher = authorPublisher;
     }
 
     // Getters and Setters
@@ -117,12 +122,43 @@ public class BookDTO {
         this.copiesSold = copiesSold;
     }
 
-    public Author getAuthor() {
-        return author;
+    public Long getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
     }
 
+    public String getAuthorFirstName() {
+        return authorFirstName;
+    }
+
+    public void setAuthorFirstName(String authorFirstName) {
+        this.authorFirstName = authorFirstName;
+    }
+
+    public String getAuthorLastName() {
+        return authorLastName;
+    }
+
+    public void setAuthorLastName(String authorLastName) {
+        this.authorLastName = authorLastName;
+    }
+
+    public String getAuthorBiography() {
+        return authorBiography;
+    }
+
+    public void setAuthorBiography(String authorBiography) {
+        this.authorBiography = authorBiography;
+    }
+
+    public String getAuthorPublisher() {
+        return authorPublisher;
+    }
+
+    public void setAuthorPublisher(String authorPublisher) {
+        this.authorPublisher = authorPublisher;
+    }
 }

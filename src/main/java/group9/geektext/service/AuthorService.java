@@ -1,6 +1,6 @@
 package group9.geektext.service;
 
-import group9.geektext.dto.AuthorFullDTO;
+import group9.geektext.dto.AuthorDTO;
 import group9.geektext.dto.BookDTO;
 import group9.geektext.entity.Author;
 import group9.geektext.entity.Book;
@@ -20,32 +20,33 @@ public class AuthorService {
     }
 
     // Fetch all authors and convert to AuthorFullDTOs
-    public List<AuthorFullDTO> getAllAuthors() {
+    public List<AuthorDTO> getAllAuthors() {
         return authorRepository.findAll().stream()
                 .map(this::convertToDTO) // Convert each Author entity to AuthorFullDTO
                 .collect(Collectors.toList());
     }
 
     // Fetch a single author by ID and convert to AuthorFullDTO
-    public AuthorFullDTO getAuthorById(Long id) {
+    public AuthorDTO getAuthorById(Long id) {
         return authorRepository.findById(id)
                 .map(this::convertToDTO) // Convert to DTO if the author is found
                 .orElse(null); // Return null if the author is not found
     }
 
     // Create a new author
-    public AuthorFullDTO createAuthor(AuthorFullDTO authorDTO) {
+    public AuthorDTO createAuthor(AuthorDTO authorDTO) {
         Author author = convertToEntity(authorDTO); // Convert DTO to entity
         Author savedAuthor = authorRepository.save(author); // Save the entity
         return convertToDTO(savedAuthor); // Return saved entity as DTO
     }
 
     // Update an existing author
-    public AuthorFullDTO updateAuthor(Long authorId, AuthorFullDTO authorDTO) {
+    public AuthorDTO updateAuthor(Long authorId, AuthorDTO authorDTO) {
         return authorRepository.findById(authorId).map(existingAuthor -> {
             existingAuthor.setFirstName(authorDTO.getFirstName());
             existingAuthor.setLastName(authorDTO.getLastName());
             existingAuthor.setBiography(authorDTO.getBiography());
+            existingAuthor.setPublisher(authorDTO.getPublisher());
             // Add other fields as necessary...
 
             Author updatedAuthor = authorRepository.save(existingAuthor); // Save the updated entity
@@ -59,28 +60,25 @@ public class AuthorService {
     }
 
     // Convert an Author entity to AuthorFullDTO
-    private AuthorFullDTO convertToDTO(Author author) {
-
+    private AuthorDTO convertToDTO(Author author) {
         if (author.getBooks() == null) {
-            return new AuthorFullDTO(
-                    author.getId(),
-                    author.getFirstName(),
-                    author.getLastName(),
-                    author.getBiography(),
-                    author.getPublisher());
-        } else {
-            return new AuthorFullDTO(
-                    author.getId(),
-                    author.getFirstName(),
-                    author.getLastName(),
-                    author.getBiography(),
-                    author.getPublisher(),
-                    author.getBooks().stream()
-                            .map(this::convertBookToDTO) // Convert each Book entity to BookDTO
-                            .collect(Collectors.toList()));
-        }
-
-    }
+        return new AuthorDTO(
+                author.getId(),
+                author.getFirstName(),
+                author.getLastName(),
+                author.getBiography(),
+                author.getPublisher());
+    } else {
+        return new AuthorDTO(
+                author.getId(),
+                author.getFirstName(),
+                author.getLastName(),
+                author.getBiography(),
+                author.getPublisher(),
+                author.getBooks().stream()
+                        .map(this::convertBookToDTO) // Convert each Book entity to BookDTO
+                        .collect(Collectors.toList()));
+    }}
 
     // Helper method to convert Book entity to BookDTO
     private BookDTO convertBookToDTO(Book book) {
@@ -93,13 +91,13 @@ public class AuthorService {
                 book.getDescription(), // Description field
                 book.getPublisher(), // Publisher field
                 book.getYearPublished(), // Year Published field
-                book.getCopiesSold(), // Copies Sold field
+                book.getCopiesSold(),  // Copies Sold field
                 book.getAuthor()
         );
     }
 
     // Convert an AuthorFullDTO to an Author entity
-    private Author convertToEntity(AuthorFullDTO authorDTO) {
+    private Author convertToEntity(AuthorDTO authorDTO) {
         Author author = new Author();
         author.setFirstName(authorDTO.getFirstName());
         author.setLastName(authorDTO.getLastName());

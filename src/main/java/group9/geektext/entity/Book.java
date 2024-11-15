@@ -131,4 +131,14 @@ public class Book {
     public Author getAuthor() { return author; }
 
     public void setAuthor(Author author) {this.author = author;}
+
+    public Long getAuthorId() { return this.author.getId(); }
+
+    public String getAuthorFirstName( ) { return this.author.getFirstName(); }
+
+    public String getAuthorLastName( ) { return this.author.getLastName(); }
+
+    public String getAuthorBiography( ) { return this.author.getBiography(); }
+
+    public String getAuthorPublisher( ) { return this.author.getPublisher(); }
 }

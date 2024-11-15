@@ -1,8 +1,7 @@
 package group9.geektext.service;
 
-import group9.geektext.dto.AuthorFullDTO;
 import group9.geektext.dto.BookDTO;
-import group9.geektext.entity.Author;
+import group9.geektext.dto.BookDTOStandalone;
 import group9.geektext.entity.Book;
 import group9.geektext.repository.BookRepository;
 import org.springframework.stereotype.Service;
@@ -19,27 +18,27 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public List<BookDTO> getAllBooks() {
+    public List<BookDTOStandalone> getAllBooks() {
         return bookRepository.findAll().stream()
-                .map(this::convertToDTO)
+                .map(this::convertToDTOStandalone)
                 .collect(Collectors.toList());
     }
 
-    public BookDTO getBookById(Long id) {
+    public BookDTOStandalone getBookById(Long id) {
         return bookRepository.findById(id)
-                .map(this::convertToDTO)
+                .map(this::convertToDTOStandalone)
                 .orElse(null);
     }
 
-    public BookDTO createBook(BookDTO bookDTORequest) {
+    public BookDTOStandalone createBook(BookDTO bookDTORequest) {
         Book book = convertToEntity(bookDTORequest); // Convert DTO to entity
         Book savedBook = bookRepository.save(book); // Save the entity
 
-        return convertToDTO(savedBook);
+        return convertToDTOStandalone(savedBook);
     }
 
     // Update an existing book
-    public BookDTO updateBook(Long id, BookDTO bookDTO) {
+    public BookDTOStandalone updateBook(Long id, BookDTO bookDTO) {
         return bookRepository.findById(id).map(existingBook -> {
             existingBook.setIsbn(bookDTO.getIsbn());
             existingBook.setTitle(bookDTO.getTitle());
@@ -51,7 +50,7 @@ public class BookService {
             existingBook.setCopiesSold(bookDTO.getCopiesSold());
 
             Book updatedBook = bookRepository.save(existingBook); // Save the updated entity
-            return convertToDTO(updatedBook); // Return the updated entity as a DTO
+            return convertToDTOStandalone(updatedBook); // Return the updated entity as a DTO
         }).orElse(null); // Return null if the author is not found
     }
 
@@ -77,8 +76,30 @@ public class BookService {
         return book;
     }
 
+    // Helper method to convert Book entity to BookDTOStandalone
+    private BookDTOStandalone convertToDTOStandalone(Book book) {
+
+        return new BookDTOStandalone(
+                book.getId(),
+                book.getIsbn(),
+                book.getTitle(),
+                book.getGenre(),
+                book.getPrice(),
+                book.getDescription(), // Description field
+                book.getPublisher(), // Publisher field
+                book.getYearPublished(), // Year Published field
+                book.getCopiesSold(), // Copies Sold field
+                book.getAuthorId(),
+                book.getAuthorFirstName(),
+                book.getAuthorLastName(),
+                book.getAuthorBiography(),
+                book.getAuthorPublisher()
+        );
+    }
+
     // Helper method to convert Book entity to BookDTO
     private BookDTO convertToDTO(Book book) {
+
         return new BookDTO(
                 book.getId(),
                 book.getIsbn(),
@@ -91,18 +112,5 @@ public class BookService {
                 book.getCopiesSold(), // Copies Sold field
                 book.getAuthor()
         );
-    }
-
-    // Convert an Author entity to AuthorFullDTO
-    private AuthorFullDTO convertAuthorToDTO(Author author) {
-        return new AuthorFullDTO(
-                author.getId(),
-                author.getFirstName(),
-                author.getLastName(),
-                author.getBiography(),
-                author.getPublisher(),
-                author.getBooks().stream()
-                        .map(this::convertToDTO) // Convert each Book entity to BookDTO
-                        .collect(Collectors.toList()));
     }
 }
