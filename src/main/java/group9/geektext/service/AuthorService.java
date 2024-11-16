@@ -33,10 +33,10 @@ public class AuthorService {
     }
 
     // Create a new author
-    public AuthorDTO createAuthor(AuthorDTO authorDTO) {
+    public AuthorDTOStandalone createAuthor(AuthorDTO authorDTO) {
         Author author = convertToEntity(authorDTO); // Convert DTO to entity
         Author savedAuthor = authorRepository.save(author); // Save the entity
-        return convertToDTO(savedAuthor); // Return saved entity as DTO
+        return convertToDTOStandalone(savedAuthor); // Return saved entity as DTO
     }
 
     // Update an existing author
@@ -59,14 +59,6 @@ public class AuthorService {
 
     // Convert an Author entity to AuthorDTO
     private AuthorDTO convertToDTO(Author author) {
-        if (author.getBooks() == null) {
-        return new AuthorDTO(
-                author.getId(),
-                author.getFirstName(),
-                author.getLastName(),
-                author.getBiography(),
-                author.getPublisher());
-    } else {
         return new AuthorDTO(
                 author.getId(),
                 author.getFirstName(),
@@ -76,7 +68,17 @@ public class AuthorService {
                 author.getBooks().stream()
                         .map(this::convertBookToDTO) // Convert each Book entity to BookDTOMin
                         .collect(Collectors.toList()));
-    }}
+    }
+
+    // Convert an Author entity to AuthorDTOStandalone
+    private AuthorDTOStandalone convertToDTOStandalone(Author author) {
+            return new AuthorDTOStandalone(
+                    author.getId(),
+                    author.getFirstName(),
+                    author.getLastName(),
+                    author.getBiography(),
+                    author.getPublisher());
+        }
 
     // Helper method to convert Book entity to BookDTOMin
     private BookDTOMin convertBookToDTO(Book book) {

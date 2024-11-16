@@ -51,6 +51,7 @@ public class BookService {
             existingBook.setPublisher(bookDTO.getPublisher());
             existingBook.setYearPublished(bookDTO.getYearPublished());
             existingBook.setCopiesSold(bookDTO.getCopiesSold());
+            existingBook.setAuthor(bookDTO.getAuthor());
 
             Book updatedBook = bookRepository.save(existingBook); // Save the updated entity
             return convertToDTOStandalone(updatedBook); // Return the updated entity as a DTO
