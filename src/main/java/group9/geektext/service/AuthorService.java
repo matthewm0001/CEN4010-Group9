@@ -1,7 +1,6 @@
 package group9.geektext.service;
 
-import group9.geektext.dto.AuthorDTO;
-import group9.geektext.dto.BookDTO;
+import group9.geektext.dto.*;
 import group9.geektext.entity.Author;
 import group9.geektext.entity.Book;
 import group9.geektext.repository.AuthorRepository;
@@ -47,7 +46,6 @@ public class AuthorService {
             existingAuthor.setLastName(authorDTO.getLastName());
             existingAuthor.setBiography(authorDTO.getBiography());
             existingAuthor.setPublisher(authorDTO.getPublisher());
-            // Add other fields as necessary...
 
             Author updatedAuthor = authorRepository.save(existingAuthor); // Save the updated entity
             return convertToDTO(updatedAuthor); // Return the updated entity as a DTO
@@ -76,34 +74,32 @@ public class AuthorService {
                 author.getBiography(),
                 author.getPublisher(),
                 author.getBooks().stream()
-                        .map(this::convertBookToDTO) // Convert each Book entity to BookDTO
+                        .map(this::convertBookToDTO) // Convert each Book entity to BookDTOMin
                         .collect(Collectors.toList()));
     }}
 
-    // Helper method to convert Book entity to BookDTO
-    private BookDTO convertBookToDTO(Book book) {
-        return new BookDTO(
-                book.getId(),
-                book.getIsbn(),
-                book.getTitle(),
-                book.getGenre(),
-                book.getPrice(),
+    // Helper method to convert Book entity to BookDTOMin
+    private BookDTOMin convertBookToDTO(Book book) {
+        return new BookDTOMin(
+                book.getId(), // ID field
+                book.getIsbn(), // ISBN field
+                book.getTitle(), // Title field
+                book.getGenre(), // Genre field
+                book.getPrice(), // Price field
                 book.getDescription(), // Description field
                 book.getPublisher(), // Publisher field
                 book.getYearPublished(), // Year Published field
-                book.getCopiesSold(),  // Copies Sold field
-                book.getAuthor()
+                book.getCopiesSold()  // Copies Sold field
         );
     }
 
-    // Convert an AuthorFullDTO to an Author entity
+    // Convert an AuthorDTO to an Author entity
     private Author convertToEntity(AuthorDTO authorDTO) {
         Author author = new Author();
         author.setFirstName(authorDTO.getFirstName());
         author.setLastName(authorDTO.getLastName());
         author.setBiography(authorDTO.getBiography());
         author.setPublisher(authorDTO.getPublisher());
-        // Add other fields if necessary...
         return author;
     }
 }

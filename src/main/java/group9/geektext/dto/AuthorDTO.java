@@ -7,7 +7,7 @@ public class AuthorDTO {
     private String lastName;
     private String biography;
     private String publisher;
-    private List<BookDTO> books;  // List of books the author has written
+    private List<BookDTOMin> books;  // List of books the author has written
 
     // Constructor
     public AuthorDTO() {
@@ -22,7 +22,7 @@ public class AuthorDTO {
         this.publisher = publisher;
     }
 
-    public AuthorDTO(Long id, String firstName, String lastName, String biography, String publisher, List<BookDTO> books) {
+    public AuthorDTO(Long id, String firstName, String lastName, String biography, String publisher, List<BookDTOMin> books) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -72,11 +72,11 @@ public class AuthorDTO {
         this.publisher = publisher;
     }
 
-    public List<BookDTO> getBooks() {
+    public List<BookDTOMin> getBooks() {
         return books;
     }
 
-    public void setBooks(List<BookDTO> books) {
+    public void setBooks(List<BookDTOMin> books) {
         this.books = books;
     }
 }
