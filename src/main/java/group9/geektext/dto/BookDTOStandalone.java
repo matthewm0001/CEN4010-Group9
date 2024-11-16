@@ -1,8 +1,7 @@
 package group9.geektext.dto;
 
 public class BookDTOStandalone {
-    private Long id;
-    private String isbn;
+    private Long isbn;
     private String title;
     private String genre;
     private double price;
@@ -16,9 +15,8 @@ public class BookDTOStandalone {
     public BookDTOStandalone() {
     }
 
-    public BookDTOStandalone(Long id, String isbn, String title, String genre, double price, String description, String publisher, int yearPublished, int copiesSold, AuthorDTOStandalone author) {
+    public BookDTOStandalone(Long isbn, String title, String genre, double price, String description, String publisher, int yearPublished, int copiesSold, AuthorDTOStandalone author) {
         this.publisher = publisher;
-        this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.genre = genre;
@@ -30,19 +28,12 @@ public class BookDTOStandalone {
     }
 
     // Getters and Setters
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getIsbn() {
+    public Long getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(String isbn) {
+    public void setIsbn(Long isbn) {
         this.isbn = isbn;
     }
 

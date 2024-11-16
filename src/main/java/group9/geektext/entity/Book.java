@@ -7,11 +7,8 @@ import jakarta.persistence.*;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
-
-    @Column(name = "isbn", nullable = false, unique = true)
-    private String isbn;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -42,9 +39,9 @@ public class Book {
     public Book() {
     }
 
-    public Book(String isbn, String title, String genre, String description, String publisher, double price,
+    public Book(Long id, String title, String genre, String description, String publisher, double price,
             int copiesSold, int yearPublished, Author author) {
-        this.isbn = isbn;
+        this.id = id;
         this.title = title;
         this.genre = genre;
         this.description = description;
@@ -55,21 +52,12 @@ public class Book {
         this.author = author;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
     }
 
     public String getTitle() {

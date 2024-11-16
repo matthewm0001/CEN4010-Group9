@@ -1,6 +1,8 @@
 package group9.geektext.service;
 
-import group9.geektext.dto.*;
+import group9.geektext.dto.AuthorDTOStandalone;
+import group9.geektext.dto.AuthorDTO;
+import group9.geektext.dto.BookDTOMin;
 import group9.geektext.entity.Author;
 import group9.geektext.entity.Book;
 import group9.geektext.repository.AuthorRepository;
@@ -83,8 +85,7 @@ public class AuthorService {
     // Helper method to convert Book entity to BookDTOMin
     private BookDTOMin convertBookToDTO(Book book) {
         return new BookDTOMin(
-                book.getId(), // ID field
-                book.getIsbn(), // ISBN field
+                book.getId(), // ISBN field
                 book.getTitle(), // Title field
                 book.getGenre(), // Genre field
                 book.getPrice(), // Price field

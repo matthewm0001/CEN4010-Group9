@@ -1,6 +1,7 @@
 package group9.geektext.controller;
 
 import group9.geektext.dto.BookDTO;
+import group9.geektext.dto.BookDTOAuthorID;
 import group9.geektext.dto.BookDTOStandalone;
 import group9.geektext.service.BookService;
 import org.springframework.http.ResponseEntity;
@@ -44,8 +45,8 @@ public class BookController {
 
     // Update a book
     @PutMapping("/{id}")
-    public ResponseEntity<BookDTOStandalone> updateAuthor(@PathVariable Long id, @RequestBody BookDTO bookDTO) {
-        BookDTOStandalone updatedBook = bookService.updateBook(id, bookDTO);
+    public ResponseEntity<BookDTOAuthorID> updateAuthor(@PathVariable Long id, @RequestBody BookDTO bookDTO) {
+        BookDTOAuthorID updatedBook = bookService.updateBook(id, bookDTO);
         return updatedBook != null ? ResponseEntity.ok(updatedBook) : ResponseEntity.notFound().build();
     }
 

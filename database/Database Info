@@ -14,8 +14,7 @@ Users Table:
 - created_at
 
 Books Table:
-- id (Unique ID for each book.)
-- isbn
+- isbn (Unique ID for each book.)
 - title
 - description
 - price
