@@ -1,6 +1,7 @@
 package group9.geektext.controller;
 
 import group9.geektext.dto.AuthorDTO;
+import group9.geektext.dto.AuthorDTOStandalone;
 import group9.geektext.service.AuthorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,8 @@ public class AuthorController {
 
     // Create a new author
     @PostMapping
-    public ResponseEntity<AuthorDTO> createAuthor(@RequestBody AuthorDTO authorDTO) {
-        AuthorDTO createdAuthor = authorService.createAuthor(authorDTO);
+    public ResponseEntity<AuthorDTOStandalone> createAuthor(@RequestBody AuthorDTO authorDTO) {
+        AuthorDTOStandalone createdAuthor = authorService.createAuthor(authorDTO);
         return ResponseEntity.ok(createdAuthor);
     }
 

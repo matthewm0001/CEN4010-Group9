@@ -1,8 +1,6 @@
 package group9.geektext.dto;
 
-import group9.geektext.entity.Author;
-
-public class BookDTO {
+public class BookDTOMin {
     private Long isbn;
     private String title;
     private String genre;
@@ -11,31 +9,18 @@ public class BookDTO {
     private String publisher;
     private int yearPublished;    // Add this field
     private int copiesSold;       // Add this field
-    private Author author;     // AuthorDTO contains only firstName and lastName
 
     // Constructor
-    public BookDTO() {
+    public BookDTOMin() {
     }
 
-    public BookDTO(Long isbn, String title, String genre, double price, String description, String publisher, int yearPublished, int copiesSold, Author author) {
+    public BookDTOMin(Long isbn, String title, String genre, double price, String description, String publisher, int yearPublished, int copiesSold) {
+        this.publisher = publisher;
         this.isbn = isbn;
         this.title = title;
         this.genre = genre;
         this.price = price;
         this.description = description;
-        this.publisher = publisher;
-        this.yearPublished = yearPublished;
-        this.copiesSold = copiesSold;
-        this.author = author;
-    }
-
-    public BookDTO(Long isbn, String title, String genre, double price, String description, String publisher, int yearPublished, int copiesSold) {
-        this.isbn = isbn;
-        this.title = title;
-        this.genre = genre;
-        this.price = price;
-        this.description = description;
-        this.publisher = publisher;
         this.yearPublished = yearPublished;
         this.copiesSold = copiesSold;
     }
@@ -104,14 +89,6 @@ public class BookDTO {
 
     public void setCopiesSold(int copiesSold) {
         this.copiesSold = copiesSold;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
     }
 
 }

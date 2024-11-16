@@ -1,34 +1,23 @@
 package group9.geektext.dto;
-import java.util.List;
 
-public class AuthorDTO {
+public class AuthorDTOStandalone {
     private Long id;
     private String firstName;
     private String lastName;
     private String biography;
     private String publisher;
-    private List<BookDTOMin> books;  // List of books the author has written
 
     // Constructor
-    public AuthorDTO() {
+    public AuthorDTOStandalone() {
     }
 
     // Constructor
-    public AuthorDTO(Long id, String firstName, String lastName, String biography, String publisher) {
+    public AuthorDTOStandalone(Long id, String firstName, String lastName, String biography, String publisher) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.biography = biography;
         this.publisher = publisher;
-    }
-
-    public AuthorDTO(Long id, String firstName, String lastName, String biography, String publisher, List<BookDTOMin> books) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.biography = biography;
-        this.publisher = publisher;
-        this.books = books;
     }
 
     // Getters and Setters
@@ -72,11 +61,4 @@ public class AuthorDTO {
         this.publisher = publisher;
     }
 
-    public List<BookDTOMin> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<BookDTOMin> books) {
-        this.books = books;
-    }
 }

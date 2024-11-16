@@ -7,11 +7,8 @@ import jakarta.persistence.*;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
-
-    @Column(name = "isbn", nullable = false)
-    private String isbn;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -34,17 +31,17 @@ public class Book {
     @Column(name = "year_published", nullable = false)
     private int yearPublished;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "author_id", nullable = true, foreignKey = @ForeignKey(name = "books_ibfk_1"))
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "author_id", nullable = false, foreignKey = @ForeignKey(name = "books_ibfk_1"))
     private Author author; // Full Author object without DTO
 
     // Constructors
     public Book() {
     }
 
-    public Book(String isbn, String title, String genre, String description, String publisher, double price,
+    public Book(Long id, String title, String genre, String description, String publisher, double price,
             int copiesSold, int yearPublished, Author author) {
-        this.isbn = isbn;
+        this.id = id;
         this.title = title;
         this.genre = genre;
         this.description = description;
@@ -55,21 +52,12 @@ public class Book {
         this.author = author;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
     }
 
     public String getTitle() {

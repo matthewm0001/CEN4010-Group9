@@ -1,7 +1,8 @@
 package group9.geektext.service;
 
+import group9.geektext.dto.AuthorDTOStandalone;
 import group9.geektext.dto.AuthorDTO;
-import group9.geektext.dto.BookDTO;
+import group9.geektext.dto.BookDTOMin;
 import group9.geektext.entity.Author;
 import group9.geektext.entity.Book;
 import group9.geektext.repository.AuthorRepository;
@@ -34,10 +35,10 @@ public class AuthorService {
     }
 
     // Create a new author
-    public AuthorDTO createAuthor(AuthorDTO authorDTO) {
+    public AuthorDTOStandalone createAuthor(AuthorDTO authorDTO) {
         Author author = convertToEntity(authorDTO); // Convert DTO to entity
         Author savedAuthor = authorRepository.save(author); // Save the entity
-        return convertToDTO(savedAuthor); // Return saved entity as DTO
+        return convertToDTOStandalone(savedAuthor); // Return saved entity as DTO
     }
 
     // Update an existing author
@@ -47,7 +48,6 @@ public class AuthorService {
             existingAuthor.setLastName(authorDTO.getLastName());
             existingAuthor.setBiography(authorDTO.getBiography());
             existingAuthor.setPublisher(authorDTO.getPublisher());
-            // Add other fields as necessary...
 
             Author updatedAuthor = authorRepository.save(existingAuthor); // Save the updated entity
             return convertToDTO(updatedAuthor); // Return the updated entity as a DTO
@@ -59,16 +59,8 @@ public class AuthorService {
         authorRepository.deleteById(authorId);
     }
 
-    // Convert an Author entity to AuthorFullDTO
+    // Convert an Author entity to AuthorDTO
     private AuthorDTO convertToDTO(Author author) {
-        if (author.getBooks() == null) {
-        return new AuthorDTO(
-                author.getId(),
-                author.getFirstName(),
-                author.getLastName(),
-                author.getBiography(),
-                author.getPublisher());
-    } else {
         return new AuthorDTO(
                 author.getId(),
                 author.getFirstName(),
@@ -76,34 +68,41 @@ public class AuthorService {
                 author.getBiography(),
                 author.getPublisher(),
                 author.getBooks().stream()
-                        .map(this::convertBookToDTO) // Convert each Book entity to BookDTO
+                        .map(this::convertBookToDTO) // Convert each Book entity to BookDTOMin
                         .collect(Collectors.toList()));
-    }}
+    }
 
-    // Helper method to convert Book entity to BookDTO
-    private BookDTO convertBookToDTO(Book book) {
-        return new BookDTO(
-                book.getId(),
-                book.getIsbn(),
-                book.getTitle(),
-                book.getGenre(),
-                book.getPrice(),
+    // Convert an Author entity to AuthorDTOStandalone
+    private AuthorDTOStandalone convertToDTOStandalone(Author author) {
+            return new AuthorDTOStandalone(
+                    author.getId(),
+                    author.getFirstName(),
+                    author.getLastName(),
+                    author.getBiography(),
+                    author.getPublisher());
+        }
+
+    // Helper method to convert Book entity to BookDTOMin
+    private BookDTOMin convertBookToDTO(Book book) {
+        return new BookDTOMin(
+                book.getId(), // ISBN field
+                book.getTitle(), // Title field
+                book.getGenre(), // Genre field
+                book.getPrice(), // Price field
                 book.getDescription(), // Description field
                 book.getPublisher(), // Publisher field
                 book.getYearPublished(), // Year Published field
-                book.getCopiesSold(),  // Copies Sold field
-                book.getAuthor()
+                book.getCopiesSold()  // Copies Sold field
         );
     }
 
-    // Convert an AuthorFullDTO to an Author entity
+    // Convert an AuthorDTO to an Author entity
     private Author convertToEntity(AuthorDTO authorDTO) {
         Author author = new Author();
         author.setFirstName(authorDTO.getFirstName());
         author.setLastName(authorDTO.getLastName());
         author.setBiography(authorDTO.getBiography());
         author.setPublisher(authorDTO.getPublisher());
-        // Add other fields if necessary...
         return author;
     }
 }

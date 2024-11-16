@@ -42,8 +42,7 @@ DROP TABLE IF EXISTS `books`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `books` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `isbn` varchar(13) NOT NULL,
+  `id` varchar(13) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text,
   `price` decimal(10,2) NOT NULL,
@@ -53,7 +52,6 @@ CREATE TABLE `books` (
   `year_published` year DEFAULT NULL,
   `copies_sold` int DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `isbn` (`isbn`),
   KEY `author_id` (`author_id`),
   CONSTRAINT `books_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `authors` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -68,7 +66,7 @@ DROP TABLE IF EXISTS `comments`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comments` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `book_id` int DEFAULT NULL,
+  `book_id` varchar(13) DEFAULT NULL,
   `user_id` int DEFAULT NULL,
   `comment` text,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -108,7 +106,7 @@ DROP TABLE IF EXISTS `ratings`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ratings` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `book_id` int DEFAULT NULL,
+  `book_id` varchar(13) DEFAULT NULL,
   `user_id` int DEFAULT NULL,
   `rating` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -131,7 +129,7 @@ DROP TABLE IF EXISTS `shoppingcart`;
 CREATE TABLE `shoppingcart` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
-  `book_id` int DEFAULT NULL,
+  `book_id` varchar(13) DEFAULT NULL,
   `quantity` int DEFAULT '1',
   `added_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -185,7 +183,7 @@ DROP TABLE IF EXISTS `wishlistbooks`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `wishlistbooks` (
   `wishlist_id` int NOT NULL,
-  `book_id` int NOT NULL,
+  `book_id` varchar(13) NOT NULL,
   PRIMARY KEY (`wishlist_id`,`book_id`),
   KEY `book_id` (`book_id`),
   CONSTRAINT `wishlistbooks_ibfk_1` FOREIGN KEY (`wishlist_id`) REFERENCES `wishlists` (`id`),
