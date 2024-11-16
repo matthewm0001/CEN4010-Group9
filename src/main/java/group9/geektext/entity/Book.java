@@ -10,7 +10,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "isbn", nullable = false)
+    @Column(name = "isbn", nullable = false, unique = true)
     private String isbn;
 
     @Column(name = "title", nullable = false)
@@ -34,8 +34,8 @@ public class Book {
     @Column(name = "year_published", nullable = false)
     private int yearPublished;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "author_id", nullable = true, foreignKey = @ForeignKey(name = "books_ibfk_1"))
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "author_id", nullable = false, foreignKey = @ForeignKey(name = "books_ibfk_1"))
     private Author author; // Full Author object without DTO
 
     // Constructors

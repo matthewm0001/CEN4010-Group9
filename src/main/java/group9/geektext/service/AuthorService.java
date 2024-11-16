@@ -59,7 +59,7 @@ public class AuthorService {
         authorRepository.deleteById(authorId);
     }
 
-    // Convert an Author entity to AuthorFullDTO
+    // Convert an Author entity to AuthorDTO
     private AuthorDTO convertToDTO(Author author) {
         if (author.getBooks() == null) {
         return new AuthorDTO(

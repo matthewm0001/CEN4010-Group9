@@ -1,7 +1,10 @@
 package group9.geektext.service;
 
+import group9.geektext.dto.AuthorDTO;
+import group9.geektext.dto.AuthorDTOStandalone;
 import group9.geektext.dto.BookDTO;
 import group9.geektext.dto.BookDTOStandalone;
+import group9.geektext.entity.Author;
 import group9.geektext.entity.Book;
 import group9.geektext.repository.BookRepository;
 import org.springframework.stereotype.Service;
@@ -78,22 +81,19 @@ public class BookService {
 
     // Helper method to convert Book entity to BookDTOStandalone
     private BookDTOStandalone convertToDTOStandalone(Book book) {
+    AuthorDTOStandalone author = new AuthorDTOStandalone(book.getAuthorId(), book.getAuthorFirstName(), book.getAuthorLastName(), book.getAuthorBiography(), book.getAuthorPublisher());
 
         return new BookDTOStandalone(
-                book.getId(),
-                book.getIsbn(),
-                book.getTitle(),
-                book.getGenre(),
-                book.getPrice(),
+                book.getId(), // ID field
+                book.getIsbn(), // ISBN field
+                book.getTitle(), // Title field
+                book.getGenre(), // Genre field
+                book.getPrice(), // Price field
                 book.getDescription(), // Description field
                 book.getPublisher(), // Publisher field
                 book.getYearPublished(), // Year Published field
                 book.getCopiesSold(), // Copies Sold field
-                book.getAuthorId(),
-                book.getAuthorFirstName(),
-                book.getAuthorLastName(),
-                book.getAuthorBiography(),
-                book.getAuthorPublisher()
+                author // AuthorDTO object without book list
         );
     }
 
